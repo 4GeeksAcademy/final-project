@@ -6,7 +6,7 @@ import { Cards } from "../../component/cards";
 export const CreateMuestra = () => {
 
 	const data = [
-		
+
 		{
 			img: "",
 			title: "Agregar tarea por usuario",
@@ -25,32 +25,32 @@ export const CreateMuestra = () => {
 	]
 
 	return (
-		
-		
-			<div className="container">
-			
-				<div  >
-					<div className="row p-4 d-flex justify-content-center text-center">
-				{
-					data.map(({img, title, text, buttonText, url}, i )=>{
-						return (
-							<Cards 
-							key={i}
-							src={img}
-							title={title}
-							text={text}
-							url={url}
-							
-							buttonText={buttonText}
-							/>
-						)
-					})}
-					</div>
 
+
+		<div className="container">
+
+			<div  >
+				<div className="row p-4 d-flex justify-content-center text-center">
+					{
+						data.map(({ img, title, text, buttonText, url }, i) => {
+							return (
+								<Cards
+									key={i}
+									src={img}
+									title={title}
+									text={text}
+									url={url}
+
+									buttonText={buttonText}
+								/>
+							)
+						})}
 				</div>
 
 			</div>
-				
-			
+
+		</div>
+
+
 	)
 }

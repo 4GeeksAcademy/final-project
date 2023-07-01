@@ -1,63 +1,63 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 
 
 export const ViewWorkers = () => {
-    const { store, actions } = useContext(Context)
-   
-    const heading = ["name", "last Name", "email"] 
+  const { store, actions } = useContext(Context)
 
-    useEffect(()=>{
-      actions.loadUser()
-     }, []);
+  const heading = ["name", "last Name", "email"]
 
-     const handledelete = async (id) => {
-      try {
-       const response = await fetch(
-          `https://manolos05-ideal-xylophone-7q55p7xj9jgcp9g6-3001.preview.app.github.dev/user/${id}`,
-          {
-            method: "DELETE",
+  useEffect(() => {
+    actions.loadUser()
+  }, []);
+
+  const handledelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/user/${id}`,
+        {
+          method: "DELETE",
+        }
+      ); if (response.ok) {
+        await response.json()
+        actions.loadUser()
+      };
+    } catch (error) {
+      console.log("error", error);
+    }
+
+
+  }
+
+  return (
+    <>
+      <table className="table">
+        <thead>
+          <tr>
+            {heading.map((head, i) => (
+              <th scope="col" key={i}>{head}</th>
+            ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {(
+            store.users.map(({ name, last_name, email, id }, i) => {
+              return (
+                <tr key={i}>
+                  <td>{name}</td>
+                  <td>{last_name}</td>
+                  <td>{email}</td>
+                  <td><button onClick={() => handledelete(id)} className="btn btn-danger">Delete</button></td>
+                </tr>
+              )
+            }))
           }
-        ); if (response.ok){
-            await response.json()
-            actions.loadUser()
-        };
-      } catch (error) {
-        console.log("error", error);
-      }
+        </tbody>
+      </table>
+
+    </>
 
 
-     }
-
-    return (
-        <>
-        <table className="table">
-          <thead>
-            <tr>
-              {heading.map((head, i) => (
-                <th scope="col" key={i}>{head}</th>
-              ))
-              }
-            </tr>
-          </thead>
-          <tbody>
-              {(
-                store.users.map(({name, last_name, email, id}, i) =>{
-                  return (
-                    <tr key={i}>
-                      <td>{name}</td>
-                      <td>{last_name}</td>
-                      <td>{email}</td>
-                      <td><button onClick={()=>handledelete(id)} className="btn btn-danger">Delete</button></td>
-                    </tr>
-                  )
-                }))
-                }
-          </tbody>
-        </table>
-
-      </>
-     
-    
-    )
+  )
 }

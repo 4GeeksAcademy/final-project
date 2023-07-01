@@ -3,46 +3,46 @@ import { useForm } from "../../../../hooks/useform";
 import { Context } from "../../../store/appContext"
 
 export const CreateProject = () => {
-    const { store, actions} = useContext(Context);
+    const { store, actions } = useContext(Context);
     const [inputValues, handleInputChange] = useForm({
         name: "",
         direction: "",
         user_id: "",
     })
 
-    const { name, direction, user_id} = inputValues
+    const { name, direction, user_id } = inputValues
 
-    
 
- 
+
+
     const createUserTaks = async () => {
         try {
-            await fetch (
-                "https://manolos05-ideal-xylophone-7q55p7xj9jgcp9g6-3001.preview.app.github.dev/proyecto",
+            await fetch(
+                "http://localhost:3001/proyecto",
                 {
                     method: "POST",
                     body: JSON.stringify({
                         name: name,
                         direction: direction,
                         user_id: user_id
-                    
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-          } catch (error) {
-            console.log("error", error);
-          };
-        }
 
-        useEffect(() => {
-            actions.loadUser()
-        }, [])
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+        } catch (error) {
+            console.log("error", error);
+        };
+    }
+
+    useEffect(() => {
+        actions.loadUser()
+    }, [])
 
     return (
-        
+
         <section className="vh-100" style={{ backgroundColor: "#eee" }}>
             <div className="container h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
@@ -73,11 +73,11 @@ export const CreateProject = () => {
                                                     {
                                                         store.users.map((user, i) => {
                                                             return (
-                                                              user.rol == 2 && <option  value={user.id} key={i}>{user.name}</option>
-                                                               
-                                                    )
-                                                })
-                                            }           
+                                                                user.rol == 2 && <option value={user.id} key={i}>{user.name}</option>
+
+                                                            )
+                                                        })
+                                                    }
                                                 </select>
                                             </div>
                                             <div className="d-flex flex-row align-items-center mb-4">
@@ -97,6 +97,6 @@ export const CreateProject = () => {
                 </div>
             </div>
         </section>
-      
+
     )
 }
