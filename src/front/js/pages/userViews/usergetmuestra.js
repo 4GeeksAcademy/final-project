@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "../../../hooks/useform";
+import { Mapas } from "../../component/mapas";
+
 
 export const UserGetMuestra = () => {
 
@@ -11,6 +13,7 @@ export const UserGetMuestra = () => {
     aditional_comments: ""
 
   })
+
 
   const { specimen, quality_specimen, aditional_comments } = values
 
@@ -66,6 +69,7 @@ export const UserGetMuestra = () => {
   console.log(selectedMuestra)
   return (
     <>
+      <Mapas />
       <table class="table">
         <thead>
           <tr>
